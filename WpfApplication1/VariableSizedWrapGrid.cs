@@ -1,122 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace WpfApplication1
 {
-    public class VariableSizedWrapGrid : Panel, IScrollInfo
+    public class VariableSizedWrapGrid : Panel, IScrollable
     {
+        public static readonly StyledProperty<HorizontalAlignment> HorizontalChildrenAlignmentProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, HorizontalAlignment>(nameof(HorizontalChildrenAlignment), HorizontalAlignment.Left);
+
+        public static readonly StyledProperty<double> ItemHeightProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, double>(nameof(ItemHeight), double.NaN);
+
+        public static readonly StyledProperty<double> ItemWidthProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, double>(nameof(ItemWidth), double.NaN);
+
+        public static readonly StyledProperty<bool> LatchItemSizeProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, bool>(nameof(LatchItemSize), true);
+
+        public static readonly StyledProperty<int> MaximumRowsOrColumnsProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, int>(nameof(MaximumRowsOrColumns), -1);
+
+        public static readonly StyledProperty<Orientation> OrientationProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, Orientation>(nameof(Orientation), Orientation.Vertical);
+
+        public static readonly StyledProperty<bool> StrictItemOrderProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, bool>(nameof(StrictItemOrder), true);
+
+        public static readonly StyledProperty<VerticalAlignment> VerticalChildrenAlignmentProperty =
+            AvaloniaProperty.Register<VariableSizedWrapGrid, VerticalAlignment>(nameof(VerticalChildrenAlignment), VerticalAlignment.Top);
+
+        public static readonly AttachedProperty<int> ColumnSpanProperty =
+            AvaloniaProperty.RegisterAttached<VariableSizedWrapGrid, Control, int>("ColumnSpan", 1);
+
+        public static readonly AttachedProperty<int> RowSpanProperty =
+            AvaloniaProperty.RegisterAttached<VariableSizedWrapGrid, Control, int>("RowSpan", 1);
+
+        public static int GetColumnSpan(Control element)
+        {
+            
+            Contract.Requires<ArgumentNullException>(element != null);
+            return element.GetValue(ColumnSpanProperty);
+        }
+
+        public static void SetColumnSpan(Control element, int value)
+        {
+            Contract.Requires<ArgumentNullException>(element != null);
+            element.SetValue(ColumnSpanProperty, value);
+        }
+
+        public static int GetRowSpan(Control element)
+        {
+            Contract.Requires<ArgumentNullException>(element != null);
+            return element.GetValue(RowSpanProperty);
+        }
+
+        public static void SetRowSpan(Control element, int value)
+        {
+            Contract.Requires<ArgumentNullException>(element != null);
+            element.SetValue(RowSpanProperty, value);
+        }
+
+        static VariableSizedWrapGrid()
+        {
+            AffectsArrange<VariableSizedWrapGrid>(
+                HorizontalChildrenAlignmentProperty,
+                ItemHeightProperty,
+                ItemWidthProperty,
+                LatchItemSizeProperty,
+                MaximumRowsOrColumnsProperty,
+                OrientationProperty,
+                StrictItemOrderProperty,
+                VerticalChildrenAlignmentProperty);
+
+            AffectsMeasure<VariableSizedWrapGrid>(
+                ItemHeightProperty,
+                ItemWidthProperty,
+                LatchItemSizeProperty,
+                MaximumRowsOrColumnsProperty,
+                OrientationProperty,
+                StrictItemOrderProperty);
+
+            AffectsParentArrange<VariableSizedWrapGrid>(ColumnSpanProperty, RowSpanProperty);
+
+            AffectsParentMeasure<VariableSizedWrapGrid>(ColumnSpanProperty, RowSpanProperty);
+        }
+
         public HorizontalAlignment HorizontalChildrenAlignment
         {
-            get { return (HorizontalAlignment)GetValue(HorizontalChildrenAlignmentProperty); }
+            get { return GetValue(HorizontalChildrenAlignmentProperty); }
             set { SetValue(HorizontalChildrenAlignmentProperty, value); }
         }
 
-        public static readonly DependencyProperty HorizontalChildrenAlignmentProperty =
-            DependencyProperty.Register("HorizontalChildrenAlignment", typeof(HorizontalAlignment), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(HorizontalAlignment.Left, FrameworkPropertyMetadataOptions.AffectsArrange));
-
         public double ItemHeight
         {
-            get { return (double)GetValue(ItemHeightProperty); }
+            get { return GetValue(ItemHeightProperty); }
             set { SetValue(ItemHeightProperty, value); }
         }
 
-        public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(VariableSizedWrapGrid), 
-                new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public double ItemWidth
         {
-            get { return (double)GetValue(ItemWidthProperty); }
+            get { return GetValue(ItemWidthProperty); }
             set { SetValue(ItemWidthProperty, value); }
         }
 
-        public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(VariableSizedWrapGrid), 
-                new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public bool LatchItemSize
         {
-            get { return (bool)GetValue(LatchItemSizeProperty); }
+            get { return GetValue(LatchItemSizeProperty); }
             set { SetValue(LatchItemSizeProperty, value); }
         }
 
-        public static readonly DependencyProperty LatchItemSizeProperty =
-            DependencyProperty.Register("LatchItemSize", typeof(bool), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public int MaximumRowsOrColumns
         {
-            get { return (int)GetValue(MaximumRowsOrColumnsProperty); }
+            get { return GetValue(MaximumRowsOrColumnsProperty); }
             set { SetValue(MaximumRowsOrColumnsProperty, value); }
         }
 
-        public static readonly DependencyProperty MaximumRowsOrColumnsProperty =
-            DependencyProperty.Register("MaximumRowsOrColumns", typeof(int), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
+            get { return GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
 
-        public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public bool StrictItemOrder
         {
-            get { return (bool)GetValue(StrictItemOrderProperty); }
+            get { return GetValue(StrictItemOrderProperty); }
             set { SetValue(StrictItemOrderProperty, value); }
         }
 
-        public static readonly DependencyProperty StrictItemOrderProperty =
-            DependencyProperty.Register("StrictItemOrder", typeof(bool), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         public VerticalAlignment VerticalChildrenAlignment
         {
-            get { return (VerticalAlignment)GetValue(VerticalChildrenAlignmentProperty); }
+            get { return GetValue(VerticalChildrenAlignmentProperty); }
             set { SetValue(VerticalChildrenAlignmentProperty, value); }
         }
-
-        public static readonly DependencyProperty VerticalChildrenAlignmentProperty =
-            DependencyProperty.Register("VerticalChildrenAlignment", typeof(VerticalAlignment), typeof(VariableSizedWrapGrid),
-                new FrameworkPropertyMetadata(VerticalAlignment.Top, FrameworkPropertyMetadataOptions.AffectsArrange));
-
-        public static int GetColumnSpan(DependencyObject obj)
-        {
-            return (int)obj.GetValue(ColumnSpanProperty);
-        }
-
-        public static void SetColumnSpan(DependencyObject obj, int value)
-        {
-            obj.SetValue(ColumnSpanProperty, value);
-        }
-
-        public static readonly DependencyProperty ColumnSpanProperty =
-            DependencyProperty.RegisterAttached("ColumnSpan", typeof(int), typeof(VariableSizedWrapGrid), 
-                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
-
-        public static int GetRowSpan(DependencyObject obj)
-        {
-            return (int)obj.GetValue(RowSpanProperty);
-        }
-
-        public static void SetRowSpan(DependencyObject obj, int value)
-        {
-            obj.SetValue(RowSpanProperty, value);
-        }
-
-        public static readonly DependencyProperty RowSpanProperty =
-            DependencyProperty.RegisterAttached("RowSpan", typeof(int), typeof(VariableSizedWrapGrid), 
-                new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         private class PlotSorterVertical : IComparer<Rect>
         {
@@ -152,12 +173,12 @@ namespace WpfApplication1
 
         private IEnumerable<Rect> ReserveAcreage(Rect acreage, Rect plot)
         {
-            if(acreage.IntersectsWith(plot))
+            if(acreage.Intersects(plot))
             {
                 // Above?
                 if(plot.Top < acreage.Top)
                 {
-                    var rest = new Rect(plot.Location, new Size(plot.Width, acreage.Top - plot.Top));
+                    var rest = new Rect(plot.Position, new Size(plot.Width, acreage.Top - plot.Top));
                     yield return rest;
                 }
 
@@ -171,7 +192,7 @@ namespace WpfApplication1
                 // Left?
                 if (plot.Left < acreage.Left)
                 {
-                    var rest = new Rect(plot.Location, new Size(acreage.Left - plot.Left, plot.Height));
+                    var rest = new Rect(plot.Position, new Size(acreage.Left - plot.Left, plot.Height));
                     yield return rest;
                 }
 
@@ -196,7 +217,7 @@ namespace WpfApplication1
             {
                 if ((plot.Height >= requiredSize.Height) && (plot.Width >= requiredSize.Width))
                 {
-                    var acreage = new Rect(plot.Location, requiredSize);
+                    var acreage = new Rect(plot.Position, requiredSize);
 
                     Rect innerRect;
                     Rect outerRect;
@@ -232,7 +253,7 @@ namespace WpfApplication1
                     localPlots.Sort(plotSorter);
                     plots = localPlots;
 
-                    location = acreage.Location;
+                    location = acreage.Position;
                     break;
                 }
             }
@@ -248,15 +269,15 @@ namespace WpfApplication1
             switch (HorizontalChildrenAlignment)
             {
                 case HorizontalAlignment.Center:
-                    rect.X = rect.X + Math.Max(0, (acreage.Width - desiredSize.Width) / 2);
-                    rect.Width = desiredSize.Width;
+                    rect = rect.WithX(rect.X + Math.Max(0, (acreage.Width - desiredSize.Width) / 2));
+                    rect = rect.WithWidth(desiredSize.Width);
                     break;
                 case HorizontalAlignment.Left:
-                    rect.Width = desiredSize.Width;
+                    rect = rect.WithWidth(desiredSize.Width);
                     break;
                 case HorizontalAlignment.Right:
-                    rect.X = rect.X + Math.Max(0, acreage.Width - desiredSize.Width);
-                    rect.Width = desiredSize.Width;
+                    rect = rect.WithX(rect.X + Math.Max(0, acreage.Width - desiredSize.Width));
+                    rect = rect.WithWidth(desiredSize.Width);
                     break;
                 case HorizontalAlignment.Stretch:
                 default:
@@ -267,15 +288,15 @@ namespace WpfApplication1
             switch (VerticalChildrenAlignment)
             {
                 case VerticalAlignment.Bottom:
-                    rect.Y = rect.Y + Math.Max(0, acreage.Height - desiredSize.Height);
-                    rect.Height = desiredSize.Height;
+                    rect = rect.WithY(rect.Y + Math.Max(0, acreage.Height - desiredSize.Height));
+                    rect = rect.WithHeight(desiredSize.Height);
                     break;
                 case VerticalAlignment.Center:
-                    rect.Y = rect.Y + Math.Max(0, (acreage.Height - desiredSize.Height) / 2);
-                    rect.Height = desiredSize.Height;
+                    rect = rect.WithY(rect.Y + Math.Max(0, (acreage.Height - desiredSize.Height) / 2));
+                    rect = rect.WithHeight(desiredSize.Height);
                     break;
                 case VerticalAlignment.Top:
-                    rect.Height = desiredSize.Height;
+                    rect = rect.WithHeight(desiredSize.Height);
                     break;
                 case VerticalAlignment.Stretch:
                 default:
@@ -283,15 +304,15 @@ namespace WpfApplication1
             }
 
             // Adjust location for scrolling offset
-            rect.Location = rect.Location - offset;
+            var position = rect.Position - offset;
+            rect = new Rect(position.X, position.Y, rect.Width, rect.Height);
 
             return rect;
         }
 
         double _itemHeight;
         double _itemWidth;
-
-        private ScrollViewer _owner;
+        // TODO: private ScrollViewer _owner;
         private Size _extent = new Size();
         private Size _viewport = new Size();
         private Vector _offset = new Vector();
@@ -301,10 +322,11 @@ namespace WpfApplication1
             if (_viewport != size)
             {
                 _viewport = size;
-                if (_owner != null)
-                {
-                    _owner.InvalidateScrollInfo();
-                }
+                // TODO: 
+                //if (_owner != null)
+                //{
+                //    _owner.InvalidateScrollInfo();
+                //}
             }
         }
 
@@ -313,10 +335,11 @@ namespace WpfApplication1
             if (_extent != size)
             {
                 _extent = size;
-                if (_owner != null)
-                {
-                    _owner.InvalidateScrollInfo();
-                }
+                // TODO: 
+                //if (_owner != null)
+                //{
+                //    _owner.InvalidateScrollInfo();
+                //}
             }
         }
 
@@ -325,16 +348,16 @@ namespace WpfApplication1
         protected override Size MeasureOverride(Size availableSize)
         {
             var desiredSizeMin = new Size();
-            var elementSizes = new List<Size>(InternalChildren.Count);
+            var elementSizes = new List<Size>(Children.Count);
 
             _itemHeight = ItemHeight;
             _itemWidth = ItemWidth;
 
-            foreach (UIElement element in InternalChildren)
+            foreach (var element in Children)
             {
                 Size elementSize = LatchItemSize ?
-                    new Size(double.IsNaN(_itemWidth) ? double.MaxValue : _itemWidth * GetColumnSpan(element), double.IsNaN(_itemHeight) ? double.MaxValue : _itemHeight * GetRowSpan(element)) :
-                    new Size(double.IsNaN(ItemWidth) ? double.MaxValue : _itemWidth * GetColumnSpan(element), double.IsNaN(ItemHeight) ? double.MaxValue : _itemHeight * GetRowSpan(element));
+                    new Size(double.IsNaN(_itemWidth) ? double.MaxValue : _itemWidth * GetColumnSpan((Control)element), double.IsNaN(_itemHeight) ? double.MaxValue : _itemHeight * GetRowSpan((Control)element)) :
+                    new Size(double.IsNaN(ItemWidth) ? double.MaxValue : _itemWidth * GetColumnSpan((Control)element), double.IsNaN(ItemHeight) ? double.MaxValue : _itemHeight * GetRowSpan((Control)element));
 
                 // Measure each element providing allocated plot size.
                 element.Measure(elementSize);
@@ -342,35 +365,36 @@ namespace WpfApplication1
                 // Use the elements desired size as item size in the undefined dimension(s)
                 if (double.IsNaN(_itemHeight) || (!LatchItemSize && double.IsNaN(ItemHeight)))
                 {
-                    elementSize.Height = element.DesiredSize.Height;
+                    elementSize = elementSize.WithHeight(element.DesiredSize.Height);
                 }
 
                 if (double.IsNaN(_itemWidth) || (!LatchItemSize && double.IsNaN(ItemWidth)))
                 {
-                    elementSize.Width = element.DesiredSize.Width;
+                    elementSize = elementSize.WithWidth(element.DesiredSize.Width);
                 }
 
                 if (double.IsNaN(_itemHeight))
                 {
-                    _itemHeight = element.DesiredSize.Height / GetRowSpan(element);
+                    _itemHeight = element.DesiredSize.Height / GetRowSpan((Control)element);
                 }
 
                 if (double.IsNaN(_itemWidth))
                 {
-                    _itemWidth = element.DesiredSize.Width / GetColumnSpan(element);
+                    _itemWidth = element.DesiredSize.Width / GetColumnSpan((Control)element);
                 }
 
                 // The minimum size of the panel is equal to the largest element in each dimension.
-                desiredSizeMin.Height = Math.Max(desiredSizeMin.Height, elementSize.Height);
-                desiredSizeMin.Width = Math.Max(desiredSizeMin.Width, elementSize.Width);
+                desiredSizeMin = new Size(
+                    Math.Max(desiredSizeMin.Width, elementSize.Width),
+                    Math.Max(desiredSizeMin.Height, elementSize.Height));
 
                 elementSizes.Add(elementSize);
             }
 
             // Always use at least the available size for the panel unless infinite.
-            var desiredSize = new Size();
-            desiredSize.Height = double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
-            desiredSize.Width = double.IsPositiveInfinity(availableSize.Width) ? 0 : availableSize.Width;
+            var desiredSize = new Size(
+                double.IsPositiveInfinity(availableSize.Width) ? 0 : availableSize.Width,
+                double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height);
 
             // Available plots on the panel real estate
             var plots = new List<Rect>();
@@ -387,11 +411,11 @@ namespace WpfApplication1
 
             plots.Add(bigPlot);
 
-            _finalRects = new List<Rect>(InternalChildren.Count);
+            _finalRects = new List<Rect>(Children.Count);
 
             using (var sizeEnumerator = elementSizes.GetEnumerator())
             {
-                foreach (UIElement element in InternalChildren)
+                foreach (var element in Children)
                 {
                     sizeEnumerator.MoveNext();
                     var elementSize = sizeEnumerator.Current;
@@ -403,8 +427,9 @@ namespace WpfApplication1
                     _finalRects.Add(acreage);
 
                     // Keep track of panel size...
-                    desiredSize.Height = Math.Max(desiredSize.Height, acreage.Bottom);
-                    desiredSize.Width = Math.Max(desiredSize.Width, acreage.Right);
+                    desiredSize = new Size(
+                        Math.Max(desiredSize.Width, acreage.Right),
+                        Math.Max(desiredSize.Height, acreage.Bottom));
                 }
             }
 
@@ -416,20 +441,21 @@ namespace WpfApplication1
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var actualSize = new Size();
-            actualSize.Height = double.IsPositiveInfinity(finalSize.Height) ? 0 : finalSize.Height;
-            actualSize.Width = double.IsPositiveInfinity(finalSize.Width) ? 0 : finalSize.Width;
+            var actualSize = new Size(
+                double.IsPositiveInfinity(finalSize.Width) ? 0 : finalSize.Width,
+                double.IsPositiveInfinity(finalSize.Height) ? 0 : finalSize.Height);
 
             using (var rectEnumerator = _finalRects.GetEnumerator())
             {
-                foreach (UIElement element in InternalChildren)
+                foreach (var element in Children)
                 {
                     rectEnumerator.MoveNext();
                     var acreage = rectEnumerator.Current;
 
                     // Keep track of panel size...
-                    actualSize.Height = Math.Max(actualSize.Height, acreage.Bottom);
-                    actualSize.Width = Math.Max(actualSize.Width, acreage.Right);
+                    actualSize = new Size(
+                        Math.Max(actualSize.Width, acreage.Right),
+                        Math.Max(actualSize.Height, acreage.Bottom));
 
                     // Arrange each element using allocated plot location and size.
                     element.Arrange(ArrangeElement(acreage, element.DesiredSize, _offset));
@@ -437,12 +463,24 @@ namespace WpfApplication1
             }
 
             // Adjust offset when the viewport size changes
-            SetHorizontalOffset(Math.Max(0, Math.Min(HorizontalOffset, ExtentWidth - ViewportWidth)));
-            SetVerticalOffset(Math.Max(0, Math.Min(VerticalOffset, ExtentHeight - ViewportHeight)));
+            SetHorizontalOffset(Math.Max(0, Math.Min(_offset.X, _extent.Width - _viewport.Width)));
+            SetVerticalOffset(Math.Max(0, Math.Min(_offset.Y, _extent.Height - _viewport.Height)));
 
             return actualSize;
         }
 
+        Size IScrollable.Extent => _extent;
+
+        Vector IScrollable.Offset
+        {
+            get => _offset;
+            set => _offset = value;
+        }
+
+        Size IScrollable.Viewport => _viewport;
+
+        // TODO:
+        /*
         // This property is not intended for use in your code. It is exposed publicly to fulfill an interface contract (IScrollInfo). Setting this property has no effect.
         public bool CanVerticallyScroll
         {
@@ -552,35 +590,39 @@ namespace WpfApplication1
         {
             LineRight();
         }
+        */
 
         public void SetHorizontalOffset(double offset)
         {
-            offset = Math.Max(0, Math.Min(offset, ExtentWidth - ViewportWidth));
+            offset = Math.Max(0, Math.Min(offset, _extent.Width - _viewport.Width));
             if (offset != _offset.X)
             {
-                _offset.X = offset;
-                if (_owner != null)
-                {
-                    _owner.InvalidateScrollInfo();
-                }
+                _offset = _offset.WithX(offset);
+                // TODO: 
+                //if (_owner != null)
+                //{
+                //    _owner.InvalidateScrollInfo();
+                //}
                 InvalidateArrange();
             }
         }
 
         public void SetVerticalOffset(double offset)
         {
-            offset = Math.Max(0, Math.Min(offset, ExtentHeight - ViewportHeight));
+            offset = Math.Max(0, Math.Min(offset, _extent.Height - _viewport.Height));
             if (offset != _offset.Y)
             {
-                _offset.Y = offset;
-                if (_owner != null)
-                {
-                    _owner.InvalidateScrollInfo();
-                }
+                _offset = _offset.WithY(offset);
+                // TODO: 
+                //if (_owner != null)
+                //{
+                //    _owner.InvalidateScrollInfo();
+                //}
                 InvalidateArrange();
             }
         }
 
+        /*
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
             if (rectangle.IsEmpty || visual == null || visual == this || !IsAncestorOf(visual))
@@ -590,7 +632,7 @@ namespace WpfApplication1
 
             rectangle = visual.TransformToAncestor(this).TransformBounds(rectangle);
 
-            Rect viewRect = new Rect(HorizontalOffset, VerticalOffset, ViewportWidth, ViewportHeight);
+            Rect viewRect = new Rect(HorizontalOffset, VerticalOffset, ViewportWidth, _viewport.Height);
 
             // Horizontal
             if (rectangle.Right + HorizontalOffset > viewRect.Right)
@@ -619,5 +661,6 @@ namespace WpfApplication1
 
             return rectangle;
         }
+        */
     }
 }

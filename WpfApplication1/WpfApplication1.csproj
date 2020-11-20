@@ -1,7 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0011991-beta" />
+  </ItemGroup>
 </Project>

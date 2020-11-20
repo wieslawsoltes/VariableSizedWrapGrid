@@ -1,10 +1,12 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 
 namespace WpfApplication1
 {
     public class MyGridView : ItemsControl
     {
+        // TODO:
+        /*
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             dynamic model = item;
@@ -25,5 +27,6 @@ namespace WpfApplication1
                 base.PrepareContainerForItemOverride(element, item);
             }
         }
+        */
     }
 }

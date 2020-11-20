@@ -1,38 +1,41 @@
-﻿<Window x:Class="WpfApplication1.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApplication1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1280">
-    <local:MyGridView ItemsSource="{Binding}" Background="DarkGray">
-        <ItemsControl.Style>
-            <Style TargetType="{x:Type local:MyGridView}">
+        xmlns:local="using:WpfApplication1"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+        Width="1280" Height="800" WindowStartupLocation="CenterScreen"
+        x:Class="WpfApplication1.MainWindow"
+        Title="MainWindow">
+    <local:MyGridView Items="{Binding}" Background="DarkGray">
+        <ItemsControl.Styles>
+            <Style Selector="local|MyGridView">
                 <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:MyGridView}">
-                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
-                                <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                </ScrollViewer>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
+                    <ControlTemplate>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
                 </Setter>
             </Style>
-        </ItemsControl.Style>
+        </ItemsControl.Styles>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <local:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemContainerStyle>
-            <Style TargetType="ContentPresenter">
+        <ItemsControl.Styles>
+            <Style Selector="ContentPresenter">
                 <Setter Property="Margin" Value="0,0,4,4"/>
             </Style>
-        </ItemsControl.ItemContainerStyle>
-        <ItemsControl.ItemTemplate>
+        </ItemsControl.Styles>
+        <ItemsControl.DataTemplates>
             <DataTemplate>
                 <Grid Height="1300" Width="1300">
                     <Grid.Background>
@@ -48,7 +51,7 @@
                     </StackPanel>
                 </Grid>
             </DataTemplate>
-        </ItemsControl.ItemTemplate>
+        </ItemsControl.DataTemplates>
     </local:MyGridView>
     <!--<ItemsControl Background="DarkGray">
         <ItemsControl.Style>

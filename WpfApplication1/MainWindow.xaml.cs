@@ -1,14 +1,20 @@
 ﻿using System.Linq;
-using System.Windows;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 
 namespace WpfApplication1
 {
-    public partial class MainWindow : Window
+    public class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+
+#if DEBUG
+            this.AttachDevTools();
+#endif
 
             var _Colors = typeof(Colors)
                            // using System.Reflection;
@@ -23,6 +29,11 @@ namespace WpfApplication1
                            });
 
             DataContext = _Colors;
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
 
         private object RowSpan(int i)
