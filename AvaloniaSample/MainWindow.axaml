@@ -8,7 +8,7 @@
         x:Class="AvaloniaSample.MainWindow"
         Title="MainWindow">
     <TabControl>
-        <TabItem Header="MyGridView">
+        <TabItem Header="Colors">
             <ItemsControl Items="{Binding}" Background="DarkGray">
                 <ItemsControl.Styles>
                     <Style Selector="ItemsControl">
@@ -19,7 +19,10 @@
                                         Background="{TemplateBinding Background}"
                                         Padding="{TemplateBinding Padding}">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <ItemsPresenter/>
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        Items="{TemplateBinding Items}"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                        ItemTemplate="{TemplateBinding ItemTemplate}"/>
                                     </ScrollViewer>
                                 </Border>
                             </ControlTemplate>
@@ -68,9 +71,15 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}">
                                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                            <ItemsPresenter/>
+                                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                                            Items="{TemplateBinding Items}"
+                                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                            ItemTemplate="{TemplateBinding ItemTemplate}"/>
                                         </ScrollViewer>
                                     </Border>
                                 </ControlTemplate>
@@ -81,6 +90,26 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="100" Width="100" Background="Black"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="ItemsControl">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:VariableSizedWrapGrid/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black"/>
