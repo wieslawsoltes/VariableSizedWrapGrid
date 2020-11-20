@@ -306,8 +306,8 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
             return rect;
         }
 
-        double _itemHeight;
-        double _itemWidth;
+        private double _itemHeight;
+        private double _itemWidth;
         // TODO: private ScrollViewer _owner;
         private Size _extent = new Size();
         private Size _viewport = new Size();
