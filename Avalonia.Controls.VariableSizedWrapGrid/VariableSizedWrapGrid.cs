@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Layout;
 
 namespace Avalonia.Controls.VariableSizedWrapGrid
 {
-    public class VariableSizedWrapGrid : Panel, IScrollable
+    public class VariableSizedWrapGrid : Panel, ILogicalScrollable
     {
         public static readonly StyledProperty<HorizontalAlignment> HorizontalChildrenAlignmentProperty =
             AvaloniaProperty.Register<VariableSizedWrapGrid, HorizontalAlignment>(nameof(HorizontalChildrenAlignment), HorizontalAlignment.Left);
@@ -86,6 +87,16 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
             AffectsParentMeasure<VariableSizedWrapGrid>(ColumnSpanProperty, RowSpanProperty);
         }
+
+        private double _itemHeight;
+        private double _itemWidth;
+        private Size _extent = new Size();
+        private Size _viewport = new Size();
+        private Vector _offset = new Vector();
+        private bool _canHorizontallyScroll = false;
+        private bool _canVerticallyScroll = false;
+        private EventHandler? _scrollInvalidated;
+        private IList<Rect>? _finalRects;
 
         public HorizontalAlignment HorizontalChildrenAlignment
         {
@@ -306,23 +317,15 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
             return rect;
         }
 
-        private double _itemHeight;
-        private double _itemWidth;
-        // TODO: private ScrollViewer _owner;
-        private Size _extent = new Size();
-        private Size _viewport = new Size();
-        private Vector _offset = new Vector();
-
         private void SetViewport(Size size)
         {
             if (_viewport != size)
             {
                 _viewport = size;
-                // TODO: 
-                //if (_owner != null)
-                //{
-                //    _owner.InvalidateScrollInfo();
-                //}
+                if (this is ILogicalScrollable logicalScrollable)
+                {
+                    logicalScrollable.RaiseScrollInvalidated(EventArgs.Empty);
+                }
             }
         }
 
@@ -331,15 +334,41 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
             if (_extent != size)
             {
                 _extent = size;
-                // TODO: 
-                //if (_owner != null)
-                //{
-                //    _owner.InvalidateScrollInfo();
-                //}
+                if (this is ILogicalScrollable logicalScrollable)
+                {
+                    logicalScrollable.RaiseScrollInvalidated(EventArgs.Empty);
+                }
             }
         }
 
-        private IList<Rect>? _finalRects;
+
+        private void SetHorizontalOffset(double offset)
+        {
+            offset = Math.Max(0, Math.Min(offset, _extent.Width - _viewport.Width));
+            if (offset != _offset.X)
+            {
+                _offset = _offset.WithX(offset);
+                if (this is ILogicalScrollable logicalScrollable)
+                {
+                    logicalScrollable.RaiseScrollInvalidated(EventArgs.Empty);
+                }
+                InvalidateArrange();
+            }
+        }
+
+        private void SetVerticalOffset(double offset)
+        {
+            offset = Math.Max(0, Math.Min(offset, _extent.Height - _viewport.Height));
+            if (offset != _offset.Y)
+            {
+                _offset = _offset.WithY(offset);
+                if (this is ILogicalScrollable logicalScrollable)
+                {
+                    logicalScrollable.RaiseScrollInvalidated(EventArgs.Empty);
+                }
+                InvalidateArrange();
+            }
+        }
 
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -479,189 +508,87 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
         }
 
         Size IScrollable.Viewport => _viewport;
-
-        // TODO:
-        /*
-        // This property is not intended for use in your code. It is exposed publicly to fulfill an interface contract (IScrollInfo). Setting this property has no effect.
-        public bool CanVerticallyScroll
+        
+        bool ILogicalScrollable.CanHorizontallyScroll
         {
-            get { return false; }
-            set { }
-        }
-
-        // This property is not intended for use in your code. It is exposed publicly to fulfill an interface contract (IScrollInfo). Setting this property has no effect.
-        public bool CanHorizontallyScroll
-        {
-            get { return false; }
-            set { }
-        }
-
-        public double ExtentWidth
-        {
-            get { return _extent.Width; }
-        }
-
-        public double ExtentHeight
-        {
-            get { return _extent.Height; }
-        }
-
-        public double ViewportWidth
-        {
-            get { return _viewport.Width; }
-        }
-
-        public double ViewportHeight
-        {
-            get { return _viewport.Height; }
-        }
-
-        public double HorizontalOffset
-        {
-            get { return _offset.X; }
-        }
-
-        public double VerticalOffset
-        {
-            get { return _offset.Y; }
-        }
-
-        public ScrollViewer ScrollOwner
-        {
-            get { return _owner; }
-            set { _owner = value; }
-        }
-
-        public void LineUp()
-        {
-            SetVerticalOffset(VerticalOffset - _itemHeight);
-        }
-
-        public void LineDown()
-        {
-            SetVerticalOffset(VerticalOffset + _itemHeight);
-        }
-
-        public void LineLeft()
-        {
-            SetHorizontalOffset(HorizontalOffset - _itemWidth);
-        }
-
-        public void LineRight()
-        {
-            SetHorizontalOffset(HorizontalOffset + _itemWidth);
-        }
-
-        public void PageUp()
-        {
-            SetVerticalOffset(VerticalOffset - Math.Max(_itemHeight, Math.Max(0, _viewport.Height - _itemHeight)));
-        }
-
-        public void PageDown()
-        {
-            SetVerticalOffset(VerticalOffset + Math.Max(_itemHeight, Math.Max(0, _viewport.Height - _itemHeight)));
-        }
-
-        public void PageLeft()
-        {
-            SetHorizontalOffset(HorizontalOffset - Math.Max(_itemWidth, Math.Max(0, _viewport.Width - _itemWidth)));
-        }
-
-        public void PageRight()
-        {
-            SetHorizontalOffset(HorizontalOffset + Math.Max(_itemWidth, Math.Max(0, _viewport.Width - _itemWidth)));
-        }
-
-        public void MouseWheelUp()
-        {
-            LineUp();
-        }
-
-        public void MouseWheelDown()
-        {
-            LineDown();
-        }
-
-        public void MouseWheelLeft()
-        {
-            LineLeft();
-        }
-
-        public void MouseWheelRight()
-        {
-            LineRight();
-        }
-        */
-
-        public void SetHorizontalOffset(double offset)
-        {
-            offset = Math.Max(0, Math.Min(offset, _extent.Width - _viewport.Width));
-            if (offset != _offset.X)
+            get => _canHorizontallyScroll;
+            set
             {
-                _offset = _offset.WithX(offset);
-                // TODO: 
-                //if (_owner != null)
-                //{
-                //    _owner.InvalidateScrollInfo();
-                //}
-                InvalidateArrange();
+                _canHorizontallyScroll = value;
+                InvalidateMeasure();
             }
         }
 
-        public void SetVerticalOffset(double offset)
+        bool ILogicalScrollable.CanVerticallyScroll
         {
-            offset = Math.Max(0, Math.Min(offset, _extent.Height - _viewport.Height));
-            if (offset != _offset.Y)
+            get => _canVerticallyScroll;
+            set
             {
-                _offset = _offset.WithY(offset);
-                // TODO: 
-                //if (_owner != null)
-                //{
-                //    _owner.InvalidateScrollInfo();
-                //}
-                InvalidateArrange();
+                _canVerticallyScroll = value;
+                InvalidateMeasure();
             }
         }
 
-        /*
-        public Rect MakeVisible(Visual visual, Rect rectangle)
+        bool ILogicalScrollable.IsLogicalScrollEnabled => true;
+
+        event EventHandler ILogicalScrollable.ScrollInvalidated
         {
-            if (rectangle.IsEmpty || visual == null || visual == this || !IsAncestorOf(visual))
+            add => _scrollInvalidated += value;
+            remove => _scrollInvalidated -= value;
+        }
+
+        Size ILogicalScrollable.ScrollSize => new Size(16, 1);
+
+        Size ILogicalScrollable.PageScrollSize => new Size(16, 16);
+
+        bool ILogicalScrollable.BringIntoView(IControl target, Rect targetRect)
+        {
+            if (targetRect.IsEmpty)
             {
-                return Rect.Empty;
+                return false;
             }
 
-            rectangle = visual.TransformToAncestor(this).TransformBounds(rectangle);
+            targetRect.TransformToAABB(target.TransformToVisual(this).Value);
 
-            Rect viewRect = new Rect(HorizontalOffset, VerticalOffset, ViewportWidth, _viewport.Height);
+            Rect viewRect = new Rect(_offset.X, _offset.Y, _viewport.Width, _viewport.Height);
 
             // Horizontal
-            if (rectangle.Right + HorizontalOffset > viewRect.Right)
+            if (targetRect.Right + _offset.X > viewRect.Right)
             {
-                viewRect.X = viewRect.X + rectangle.Right + HorizontalOffset - viewRect.Right;
+                viewRect = viewRect.WithX(viewRect.X + targetRect.Right + _offset.X - viewRect.Right);
             }
-            if(rectangle.Left + HorizontalOffset < viewRect.Left)
+            if(targetRect.Left + _offset.X < viewRect.Left)
             {
-                viewRect.X = viewRect.X - (viewRect.Left - (rectangle.Left + HorizontalOffset));
+                viewRect = viewRect.WithX(viewRect.X - (viewRect.Left - (targetRect.Left + _offset.X)));
             }
 
             // Vertical
-            if(rectangle.Bottom + VerticalOffset > viewRect.Bottom)
+            if(targetRect.Bottom + _offset.Y > viewRect.Bottom)
             {
-                viewRect.Y = viewRect.Y + rectangle.Bottom + VerticalOffset- viewRect.Bottom;
+                viewRect = viewRect.WithY(viewRect.Y + targetRect.Bottom + _offset.Y- viewRect.Bottom);
             }
-            if(rectangle.Top + VerticalOffset < viewRect.Top)
+            if(targetRect.Top + _offset.Y < viewRect.Top)
             {
-                viewRect.Y = viewRect.Y - (viewRect.Top - (rectangle.Top + VerticalOffset));
+                viewRect = viewRect.WithY(viewRect.Y - (viewRect.Top - (targetRect.Top + _offset.Y)));
             }
 
             SetHorizontalOffset(viewRect.X);
             SetVerticalOffset(viewRect.Y);
 
-            rectangle.Intersect(viewRect);
+            targetRect.Intersect(viewRect);
 
-            return rectangle;
+            return !targetRect.IsEmpty;
         }
-        */
+
+        IControl ILogicalScrollable.GetControlInDirection(NavigationDirection direction, IControl from)
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        void ILogicalScrollable.RaiseScrollInvalidated(EventArgs e)
+        {
+            _scrollInvalidated?.Invoke(this, e);
+        }
     }
 }
