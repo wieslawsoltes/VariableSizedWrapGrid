@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1280">
-
     <local:MyGridView ItemsSource="{Binding}" Background="DarkGray">
         <ItemsControl.Style>
             <Style TargetType="{x:Type local:MyGridView}">

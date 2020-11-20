@@ -10,7 +10,6 @@ namespace WpfApplication1
 {
     public class VariableSizedWrapGrid : Panel, IScrollInfo
     {
-        #region HorizontalAlignment HorizontalChildrenAlignment
         public HorizontalAlignment HorizontalChildrenAlignment
         {
             get { return (HorizontalAlignment)GetValue(HorizontalChildrenAlignmentProperty); }
@@ -20,9 +19,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty HorizontalChildrenAlignmentProperty =
             DependencyProperty.Register("HorizontalChildrenAlignment", typeof(HorizontalAlignment), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(HorizontalAlignment.Left, FrameworkPropertyMetadataOptions.AffectsArrange));
-        #endregion
 
-        #region double ItemHeight
         public double ItemHeight
         {
             get { return (double)GetValue(ItemHeightProperty); }
@@ -32,9 +29,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register("ItemHeight", typeof(double), typeof(VariableSizedWrapGrid), 
                 new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region double ItemWidth
         public double ItemWidth
         {
             get { return (double)GetValue(ItemWidthProperty); }
@@ -44,9 +39,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register("ItemWidth", typeof(double), typeof(VariableSizedWrapGrid), 
                 new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region bool LatchIemSize
         public bool LatchItemSize
         {
             get { return (bool)GetValue(LatchItemSizeProperty); }
@@ -56,9 +49,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty LatchItemSizeProperty =
             DependencyProperty.Register("LatchItemSize", typeof(bool), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region int MaximumRowsOrColumns
         public int MaximumRowsOrColumns
         {
             get { return (int)GetValue(MaximumRowsOrColumnsProperty); }
@@ -68,9 +59,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty MaximumRowsOrColumnsProperty =
             DependencyProperty.Register("MaximumRowsOrColumns", typeof(int), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region Orientation Orientation
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
@@ -80,9 +69,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region bool StrictItemOrder
         public bool StrictItemOrder
         {
             get { return (bool)GetValue(StrictItemOrderProperty); }
@@ -92,9 +79,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty StrictItemOrderProperty =
             DependencyProperty.Register("StrictItemOrder", typeof(bool), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-        #endregion
 
-        #region VerticalAlignment VerticalChildrenAlignment
         public VerticalAlignment VerticalChildrenAlignment
         {
             get { return (VerticalAlignment)GetValue(VerticalChildrenAlignmentProperty); }
@@ -104,9 +89,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty VerticalChildrenAlignmentProperty =
             DependencyProperty.Register("VerticalChildrenAlignment", typeof(VerticalAlignment), typeof(VariableSizedWrapGrid),
                 new FrameworkPropertyMetadata(VerticalAlignment.Top, FrameworkPropertyMetadataOptions.AffectsArrange));
-        #endregion
 
-        #region int ColumnSpan
         public static int GetColumnSpan(DependencyObject obj)
         {
             return (int)obj.GetValue(ColumnSpanProperty);
@@ -120,9 +103,7 @@ namespace WpfApplication1
         public static readonly DependencyProperty ColumnSpanProperty =
             DependencyProperty.RegisterAttached("ColumnSpan", typeof(int), typeof(VariableSizedWrapGrid), 
                 new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
-        #endregion
 
-        #region int RowSpan
         public static int GetRowSpan(DependencyObject obj)
         {
             return (int)obj.GetValue(RowSpanProperty);
@@ -136,7 +117,6 @@ namespace WpfApplication1
         public static readonly DependencyProperty RowSpanProperty =
             DependencyProperty.RegisterAttached("RowSpan", typeof(int), typeof(VariableSizedWrapGrid), 
                 new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
-        #endregion
 
         private class PlotSorterVertical : IComparer<Rect>
         {
@@ -208,8 +188,7 @@ namespace WpfApplication1
             }
         }
 
-        private Point PlaceElement(Size requiredSize, ref List<Rect> plots,
-            double itemWidth, double itemHeight)
+        private Point PlaceElement(Size requiredSize, ref List<Rect> plots, double itemWidth, double itemHeight)
         {
             var location = new Point();
 
@@ -464,7 +443,6 @@ namespace WpfApplication1
             return actualSize;
         }
 
-        #region IScrollInfo
         // This property is not intended for use in your code. It is exposed publicly to fulfill an interface contract (IScrollInfo). Setting this property has no effect.
         public bool CanVerticallyScroll
         {
@@ -641,6 +619,5 @@ namespace WpfApplication1
 
             return rectangle;
         }
-        #endregion
     }
 }
