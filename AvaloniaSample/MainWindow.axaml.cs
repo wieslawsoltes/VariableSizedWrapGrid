@@ -12,9 +12,7 @@ namespace AvaloniaSample
         {
             InitializeComponent();
 
-#if DEBUG
             this.AttachDevTools();
-#endif
 
             var colors = typeof(Colors)
                            // using System.Reflection;

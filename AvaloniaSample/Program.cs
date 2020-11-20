@@ -1,7 +1,5 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.Headless;
-
 namespace AvaloniaSample
 {
     class Program
@@ -23,7 +21,6 @@ namespace AvaloniaSample
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .UseSkia()
-                .UseHeadless(false)
                 .LogToTrace();
     }
 }
