@@ -2,7 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="using:AvaloniaSample"
         xmlns:controls="using:Avalonia.Controls.VariableSizedWrapGrid"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
         Width="1280" Height="800" WindowStartupLocation="CenterScreen"
@@ -10,9 +9,9 @@
         Title="MainWindow">
     <TabControl>
         <TabItem Header="MyGridView">
-            <local:MyGridView Items="{Binding}" Background="DarkGray">
+            <ItemsControl Items="{Binding}" Background="DarkGray">
                 <ItemsControl.Styles>
-                    <Style Selector="local|MyGridView">
+                    <Style Selector="ItemsControl">
                         <Setter Property="Template">
                             <ControlTemplate>
                                 <Border BorderBrush="{TemplateBinding BorderBrush}"
@@ -60,7 +59,7 @@
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.DataTemplates>
-            </local:MyGridView>
+            </ItemsControl>
         </TabItem>
         <TabItem Header="ItemsControl">
             <ItemsControl Background="DarkGray">
