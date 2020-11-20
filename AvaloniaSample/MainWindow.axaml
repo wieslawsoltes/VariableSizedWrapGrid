@@ -3,8 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="using:Avalonia.Controls.VariableSizedWrapGrid"
-        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
-        Width="1280" Height="800" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        Width="500" Height="500" WindowStartupLocation="CenterScreen"
         x:Class="AvaloniaSample.MainWindow"
         Title="MainWindow">
     <TabControl>
@@ -64,7 +64,87 @@
                 </ItemsControl.DataTemplates>
             </ItemsControl>
         </TabItem>
-        <TabItem Header="ItemsControl">
+        <TabItem Header="Example 1">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:VariableSizedWrapGrid LatchItemSize="True" StrictItemOrder="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="100" Width="100" Background="Black"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 2">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="100" Width="100" Background="Black"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 3">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="100" Width="100" Background="Black"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 4">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="200" Width="200" Background="Green"/>
+                <Grid Height="100" Width="100" Background="Blue"/>
+                <Grid Height="100" Width="100" Background="Aqua"/>
+                <Grid Height="100" Width="100" Background="Red"/>
+                <Grid Height="100" Width="100" Background="Black"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 5">
             <ItemsControl Background="DarkGray">
                 <ItemsControl.Styles>
                     <Style Selector="ItemsControl">
@@ -90,26 +170,6 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <Grid Height="200" Width="200" Background="Black"/>
-                <Grid Height="100" Width="100" Background="Aqua"/>
-                <Grid Height="100" Width="100" Background="Red"/>
-                <Grid Height="200" Width="200" Background="Green"/>
-                <Grid Height="100" Width="100" Background="Blue"/>
-                <Grid Height="100" Width="100" Background="Red"/>
-                <Grid Height="200" Width="200" Background="Green"/>
-                <Grid Height="100" Width="100" Background="Blue"/>
-                <Grid Height="100" Width="100" Background="Aqua"/>
-                <Grid Height="100" Width="100" Background="Red"/>
-                <Grid Height="100" Width="100" Background="Black"/>
-            </ItemsControl>
-        </TabItem>
-        <TabItem Header="ItemsControl">
-            <ItemsControl Background="DarkGray">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black"/>
