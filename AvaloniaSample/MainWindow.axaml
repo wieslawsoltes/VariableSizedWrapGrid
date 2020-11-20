@@ -11,6 +11,13 @@
         <TabItem Header="Colors">
             <ItemsControl Items="{Binding}" Background="DarkGray">
                 <ItemsControl.Styles>
+                    <Style Selector="ItemsControl > ContentPresenter">
+                        <Setter Property="Margin" Value="0,0,4,4"/>
+                        <Setter Property="(controls:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}"/>
+                        <Setter Property="(controls:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
                     <Style Selector="ItemsControl">
                         <Setter Property="Template">
                             <ControlTemplate>
@@ -34,15 +41,6 @@
                         <controls:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.Styles>
-                    <Style Selector="ContentPresenter">
-                        <Setter Property="Margin" Value="0,0,4,4"/>
-                        <Setter Property="(controls:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}"/>
-                        <Setter Property="(controls:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}"/>
-                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ItemsControl.Styles>
                 <ItemsControl.DataTemplates>
                     <DataTemplate>
                         <Grid Height="1300" Width="1300">
