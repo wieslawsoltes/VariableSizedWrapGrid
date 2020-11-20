@@ -12,6 +12,7 @@
     <PackageReference Include="Avalonia" Version="0.10.999-cibuild0011991-beta" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0011991-beta" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia.Headless" Version="0.10.999-cibuild0011991-beta" />
   </ItemGroup>
 
   <ItemGroup>
