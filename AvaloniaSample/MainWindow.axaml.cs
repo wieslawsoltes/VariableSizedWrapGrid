@@ -15,16 +15,15 @@ namespace AvaloniaSample
             this.AttachDevTools();
 
             var colors = typeof(Colors)
-                           // using System.Reflection;
-                           .GetProperties()
-                           .Select((c, i) => new
-                           {
-                               Color = (Color)c.GetValue(null)!,
-                               Name = c.Name,
-                               Index = i,
-                               ColSpan = ColSpan(i),
-                               RowSpan = RowSpan(i)
-                           });
+                .GetProperties()
+                .Select((c, i) => new
+                {
+                    Color = (Color) c.GetValue(null)!,
+                    Name = c.Name,
+                    Index = i,
+                    ColSpan = ColSpan(i),
+                    RowSpan = RowSpan(i)
+                });
 
             DataContext = colors;
         }
