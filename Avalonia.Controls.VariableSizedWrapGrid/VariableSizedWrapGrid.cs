@@ -89,50 +89,50 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
         public HorizontalAlignment HorizontalChildrenAlignment
         {
-            get { return GetValue(HorizontalChildrenAlignmentProperty); }
-            set { SetValue(HorizontalChildrenAlignmentProperty, value); }
+            get => GetValue(HorizontalChildrenAlignmentProperty);
+            set => SetValue(HorizontalChildrenAlignmentProperty, value);
         }
 
         public double ItemHeight
         {
-            get { return GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
+            get => GetValue(ItemHeightProperty);
+            set => SetValue(ItemHeightProperty, value);
         }
 
         public double ItemWidth
         {
-            get { return GetValue(ItemWidthProperty); }
-            set { SetValue(ItemWidthProperty, value); }
+            get => GetValue(ItemWidthProperty);
+            set => SetValue(ItemWidthProperty, value);
         }
 
         public bool LatchItemSize
         {
-            get { return GetValue(LatchItemSizeProperty); }
-            set { SetValue(LatchItemSizeProperty, value); }
+            get => GetValue(LatchItemSizeProperty);
+            set => SetValue(LatchItemSizeProperty, value);
         }
 
         public int MaximumRowsOrColumns
         {
-            get { return GetValue(MaximumRowsOrColumnsProperty); }
-            set { SetValue(MaximumRowsOrColumnsProperty, value); }
+            get => GetValue(MaximumRowsOrColumnsProperty);
+            set => SetValue(MaximumRowsOrColumnsProperty, value);
         }
 
         public Orientation Orientation
         {
-            get { return GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
         }
 
         public bool StrictItemOrder
         {
-            get { return GetValue(StrictItemOrderProperty); }
-            set { SetValue(StrictItemOrderProperty, value); }
+            get => GetValue(StrictItemOrderProperty);
+            set => SetValue(StrictItemOrderProperty, value);
         }
 
         public VerticalAlignment VerticalChildrenAlignment
         {
-            get { return GetValue(VerticalChildrenAlignmentProperty); }
-            set { SetValue(VerticalChildrenAlignmentProperty, value); }
+            get => GetValue(VerticalChildrenAlignmentProperty);
+            set => SetValue(VerticalChildrenAlignmentProperty, value);
         }
 
         private class PlotSorterVertical : IComparer<Rect>
