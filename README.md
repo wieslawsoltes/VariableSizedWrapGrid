@@ -1,6 +1,6 @@
 # VariableSizedWrapGrid
 
-* https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.variablesizedwrapgrid?view=winrt-19041
-* https://www.codeproject.com/Articles/995465/VariableSizedWrapGrid-for-WPF
-* https://xamlbrewer.wordpress.com/2017/02/27/creating-a-fluid-adaptive-ui-with-variablesizedwrapgrid-and-implicit-animations/
-* https://www.c-sharpcorner.com/UploadFile/91c28d/variablesizedwrapgrid-in-windows-store-apps/
+[![Build status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/VariableSizedWrapGrid)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=80)
+![.NET Core](https://github.com/wieslawsoltes/VariableSizedWrapGrid/workflows/.NET%20Core/badge.svg)
+
+**VariableSizedWrapGrid** is a port of [Windows UWP](https://github.com/Microsoft/XamlBehaviors) version of VariableSizedWrapGrid control for [Avalonia](https://github.com/AvaloniaUI/Avalonia) based on [WPF]((https://www.codeproject.com/Articles/995465/VariableSizedWrapGrid-for-WPF)) implemantation.

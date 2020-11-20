@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsPackable>False</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0011991-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Avalonia.Controls.VariableSizedWrapGrid\Avalonia.Controls.VariableSizedWrapGrid.csproj" />
+  </ItemGroup>
+
+</Project>
