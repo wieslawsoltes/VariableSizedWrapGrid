@@ -2,10 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="using:WpfApplication1"
+        xmlns:local="using:AvaloniaSample"
+        xmlns:controls="using:Avalonia.Controls.VariableSizedWrapGrid"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
         Width="1280" Height="800" WindowStartupLocation="CenterScreen"
-        x:Class="WpfApplication1.MainWindow"
+        x:Class="AvaloniaSample.MainWindow"
         Title="MainWindow">
     <local:MyGridView Items="{Binding}" Background="DarkGray">
         <ItemsControl.Styles>
@@ -27,7 +28,7 @@
         </ItemsControl.Styles>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <local:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150"/>
+                <controls:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.Styles>
@@ -71,7 +72,7 @@
         </ItemsControl.Style>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <local:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
+                <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <Grid Height="200" Width="200" Background="Black"/>

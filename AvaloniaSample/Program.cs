@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 
-namespace WpfApplication1
+namespace AvaloniaSample
 {
     class Program
     {

@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 
-namespace WpfApplication1
+namespace AvaloniaSample
 {
     public class MainWindow : Window
     {
@@ -16,19 +16,19 @@ namespace WpfApplication1
             this.AttachDevTools();
 #endif
 
-            var _Colors = typeof(Colors)
+            var colors = typeof(Colors)
                            // using System.Reflection;
                            .GetProperties()
                            .Select((c, i) => new
                            {
-                               Color = (Color)c.GetValue(null),
+                               Color = (Color)c.GetValue(null)!,
                                Name = c.Name,
                                Index = i,
                                ColSpan = ColSpan(i),
                                RowSpan = RowSpan(i)
                            });
 
-            DataContext = _Colors;
+            DataContext = colors;
         }
 
         private void InitializeComponent()

@@ -2,7 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace WpfApplication1
+namespace AvaloniaSample
 {
     public class App : Application
     {

@@ -7,7 +7,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 
-namespace WpfApplication1
+namespace AvaloniaSample
 {
     public class VariableSizedWrapGrid : Panel, IScrollable
     {
@@ -43,27 +43,26 @@ namespace WpfApplication1
 
         public static int GetColumnSpan(Control element)
         {
-            
             Contract.Requires<ArgumentNullException>(element != null);
-            return element.GetValue(ColumnSpanProperty);
+            return element!.GetValue(ColumnSpanProperty);
         }
 
         public static void SetColumnSpan(Control element, int value)
         {
             Contract.Requires<ArgumentNullException>(element != null);
-            element.SetValue(ColumnSpanProperty, value);
+            element!.SetValue(ColumnSpanProperty, value);
         }
 
         public static int GetRowSpan(Control element)
         {
             Contract.Requires<ArgumentNullException>(element != null);
-            return element.GetValue(RowSpanProperty);
+            return element!.GetValue(RowSpanProperty);
         }
 
         public static void SetRowSpan(Control element, int value)
         {
             Contract.Requires<ArgumentNullException>(element != null);
-            element.SetValue(RowSpanProperty, value);
+            element!.SetValue(RowSpanProperty, value);
         }
 
         static VariableSizedWrapGrid()
@@ -343,7 +342,7 @@ namespace WpfApplication1
             }
         }
 
-        private IList<Rect> _finalRects;
+        private IList<Rect>? _finalRects;
 
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -441,6 +440,11 @@ namespace WpfApplication1
 
         protected override Size ArrangeOverride(Size finalSize)
         {
+            if (_finalRects is null)
+            {
+                throw new NullReferenceException(nameof(_finalRects));
+            }
+
             var actualSize = new Size(
                 double.IsPositiveInfinity(finalSize.Width) ? 0 : finalSize.Width,
                 double.IsPositiveInfinity(finalSize.Height) ? 0 : finalSize.Height);

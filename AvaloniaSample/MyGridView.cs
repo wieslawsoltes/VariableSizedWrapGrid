@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-namespace WpfApplication1
+namespace AvaloniaSample
 {
     public class MyGridView : ItemsControl
     {
