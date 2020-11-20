@@ -35,6 +35,10 @@
                 <ItemsControl.Styles>
                     <Style Selector="ContentPresenter">
                         <Setter Property="Margin" Value="0,0,4,4"/>
+                        <Setter Property="(controls:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}"/>
+                        <Setter Property="(controls:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     </Style>
                 </ItemsControl.Styles>
                 <ItemsControl.DataTemplates>
