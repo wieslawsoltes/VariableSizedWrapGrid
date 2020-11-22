@@ -547,7 +547,7 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
                 return false;
             }
 
-            targetRect.TransformToAABB(target.TransformToVisual(this).Value);
+            targetRect = targetRect.TransformToAABB(target.TransformToVisual(this).Value);
 
             Rect viewRect = new Rect(_offset.X, _offset.Y, _viewport.Width, _viewport.Height);
 
