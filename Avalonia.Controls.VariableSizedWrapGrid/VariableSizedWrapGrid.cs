@@ -341,7 +341,6 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
             }
         }
 
-
         private void SetHorizontalOffset(double offset)
         {
             offset = Math.Max(0, Math.Min(offset, _extent.Width - _viewport.Width));
@@ -585,7 +584,6 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
             return null;
         }
 
-        /// <inheritdoc/>
         void ILogicalScrollable.RaiseScrollInvalidated(EventArgs e)
         {
             _scrollInvalidated?.Invoke(this, e);
