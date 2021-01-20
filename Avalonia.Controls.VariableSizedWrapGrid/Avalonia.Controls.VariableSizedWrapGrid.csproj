@@ -9,10 +9,10 @@
 
   <PropertyGroup>
     <VersionPrefix>0.10.0</VersionPrefix>
-    <VersionSuffix>rc1</VersionSuffix>
+    <VersionSuffix>rc2</VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
-    <Copyright>Copyright © Wiesław Šoltés 2020</Copyright>
+    <Copyright>Copyright © Wiesław Šoltés 2021</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wieslawsoltes/VariableSizedWrapGrid</PackageProjectUrl>
     <Description>Provides a grid-style layout panel where each tile/cell can be variable size based on content.</Description>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0011991-beta" />
+    <PackageReference Include="Avalonia" Version="0.10.0-rc2" />
   </ItemGroup>
 
 </Project>
