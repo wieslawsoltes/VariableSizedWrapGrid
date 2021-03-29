@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="using:Avalonia.Controls.VariableSizedWrapGrid"
+        xmlns:local="using:Avalonia.Controls.VariableSizedWrapGrid"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
         Width="500" Height="500" WindowStartupLocation="CenterScreen"
         x:Class="AvaloniaSample.MainWindow"
@@ -35,20 +35,41 @@
         </Style>
     </Window.Styles>
     <TabControl>
+        <TabItem Header="Example 0">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <local:VariableSizedWrapGrid LatchItemSize="True" 
+                                                     StrictItemOrder="True" 
+                                                     ItemHeight="100"
+                                                     ItemWidth="250"
+                                                     Orientation="Horizontal" 
+                                                     MaximumRowsOrColumns="3"
+                                                     VerticalChildrenAlignment="Stretch"
+                                                     HorizontalChildrenAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Background="Black" local:VariableSizedWrapGrid.ColumnSpan="1" local:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Aqua" local:VariableSizedWrapGrid.ColumnSpan="1" local:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Red" local:VariableSizedWrapGrid.ColumnSpan="1" local:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Green" local:VariableSizedWrapGrid.ColumnSpan="1" local:VariableSizedWrapGrid.RowSpan="2" />
+                <Grid Background="Blue" local:VariableSizedWrapGrid.ColumnSpan="2" local:VariableSizedWrapGrid.RowSpan="2"/>
+            </ItemsControl>
+        </TabItem>
         <TabItem Header="Colors">
             <ItemsControl Classes="vswg" Items="{Binding}" Background="DarkGray">
                 <ItemsControl.Styles>
                     <Style Selector="ItemsControl > ContentPresenter">
                         <Setter Property="Margin" Value="0,0,4,4" />
-                        <Setter Property="(controls:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}" />
-                        <Setter Property="(controls:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}" />
+                        <Setter Property="(local:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}" />
+                        <Setter Property="(local:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}" />
                         <Setter Property="VerticalContentAlignment" Value="Stretch" />
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ItemsControl.Styles>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150" />
+                        <local:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.DataTemplates>
@@ -76,7 +97,7 @@
             <ItemsControl Background="DarkGray">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid LatchItemSize="True" StrictItemOrder="True" />
+                        <local:VariableSizedWrapGrid LatchItemSize="True" StrictItemOrder="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black" />
@@ -96,7 +117,7 @@
             <ItemsControl Background="DarkGray">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="True" />
+                        <local:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black" />
@@ -116,7 +137,7 @@
             <ItemsControl Background="DarkGray">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                        <local:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black" />
@@ -136,7 +157,7 @@
             <ItemsControl Background="DarkGray">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                        <local:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black" />
@@ -156,7 +177,7 @@
             <ItemsControl Classes="vswg" Background="DarkGray">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                        <local:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <Grid Height="200" Width="200" Background="Black" />
