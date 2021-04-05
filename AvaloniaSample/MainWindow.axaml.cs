@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace AvaloniaSample
             InitializeComponent();
             this.AttachDevTools();
 
+            double tileAspectRation = 0.5;
+            
             var tilePanel = new TilePanelViewModel()
             {
-                ItemHeight = 100,
-                ItemWidth = 250,
+                ItemHeight = 130,
+                ItemWidth = 230,
                 MaximumRowsOrColumns = 3,
                 Tiles = new ObservableCollection<TileViewModel>()
                 {
@@ -65,6 +68,18 @@ namespace AvaloniaSample
                     },
                 }
             };
+
+            var itemsPanel = this.FindControl<ItemsControl>("ItemsControl");
+
+            itemsPanel.GetObservable(BoundsProperty).Subscribe(x =>
+            {
+                var width = x.Width;
+                var itemWidth = width / tilePanel.MaximumRowsOrColumns;
+                var itemHeight = itemWidth * tileAspectRation;
+ 
+                tilePanel.ItemHeight = itemHeight;
+                tilePanel.ItemWidth = itemWidth;
+            });
 
             DataContext = tilePanel;
         }
