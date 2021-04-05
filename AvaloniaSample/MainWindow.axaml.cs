@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using AvaloniaSample.ViewModels;
 
 namespace AvaloniaSample
 {
@@ -11,50 +14,64 @@ namespace AvaloniaSample
         public MainWindow()
         {
             InitializeComponent();
-
             this.AttachDevTools();
 
-            var colors = typeof(Colors)
-                .GetProperties()
-                .Select((c, i) => new
+            var tilePanel = new TilePanelViewModel()
+            {
+                ItemHeight = 100,
+                ItemWidth = 250,
+                MaximumRowsOrColumns = 3,
+                Tiles = new ObservableCollection<TileViewModel>()
                 {
-                    Color = (Color) c.GetValue(null)!,
-                    Name = c.Name,
-                    Index = i,
-                    ColSpan = ColSpan(i),
-                    RowSpan = RowSpan(i)
-                });
+                    new TileViewModel()
+                    {
+                        ColumnSpan = 1,
+                        RowSpan = 1,
+                        ColumnSpans = new List<int>() { 1, 1, 1 },
+                        RowSpans = new List<int>() { 1, 1, 1 },
+                        Background = SolidColorBrush.Parse("Red")
+                    },
+                    new TileViewModel()
+                    {
+                        ColumnSpan = 1,
+                        RowSpan = 1,
+                        ColumnSpans = new List<int>() { 1, 1, 1 },
+                        RowSpans = new List<int>() { 1, 1, 1 },
+                        Background = SolidColorBrush.Parse("Green")
+                    },
+                    new TileViewModel()
+                    {
+                        ColumnSpan = 1,
+                        RowSpan = 1,
+                        ColumnSpans = new List<int>() { 1, 1, 1 },
+                        RowSpans = new List<int>() { 1, 1, 1 },
+                        Background = SolidColorBrush.Parse("Blue")
+                    },
+                    new TileViewModel()
+                    {
+                        ColumnSpan = 1,
+                        RowSpan = 2,
+                        ColumnSpans = new List<int>() { 1, 1, 1 },
+                        RowSpans = new List<int>() { 1, 2, 2 },
+                        Background = SolidColorBrush.Parse("Yellow")
+                    },
+                    new TileViewModel()
+                    {
+                        ColumnSpan = 2,
+                        RowSpan = 2,
+                        ColumnSpans = new List<int>() { 2, 2, 2 },
+                        RowSpans = new List<int>() { 2, 2, 2 },
+                        Background = SolidColorBrush.Parse("Black")
+                    },
+                }
+            };
 
-            DataContext = colors;
+            DataContext = tilePanel;
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-
-        private object RowSpan(int i)
-        {
-            if (i == 0)
-                return 2;
-            if (i == 2)
-                return 3;
-            if (i == 7)
-                return 2;
-            if (i == 14)
-                return 2;
-            return 1;
-        }
-
-        private object ColSpan(int i)
-        {
-            if (i == 0)
-                return 2;
-            if (i == 6)
-                return 3;
-            if (i == 14)
-                return 2;
-            return 1;
         }
     }
 }
