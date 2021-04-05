@@ -1,0 +1,195 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="using:Avalonia.Controls.VariableSizedWrapGrid"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaSample.SamplesView">
+    <UserControl.Styles>
+        <Style Selector="ItemsControl.vswg">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+            <Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ScrollViewer Name="PART_ScrollViewer"
+                                      Background="{TemplateBinding Background}"
+                                      HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                      VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                            Items="{TemplateBinding Items}"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                            ItemTemplate="{TemplateBinding ItemTemplate}"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+    <TabControl>
+        <TabItem Header="Example 0">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="True" 
+                                                 StrictItemOrder="True" 
+                                                 ItemHeight="100"
+                                                 ItemWidth="250"
+                                                 MaximumRowsOrColumns="3"
+                                                 Orientation="Horizontal" 
+                                                 VerticalChildrenAlignment="Stretch"
+                                                 HorizontalChildrenAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Background="Red" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Green" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Blue" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="1" />
+                <Grid Background="Yellow" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="2" />
+                <Grid Background="Black" c:VariableSizedWrapGrid.ColumnSpan="2" c:VariableSizedWrapGrid.RowSpan="2"/>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Colors">
+            <ItemsControl Classes="vswg" Items="{Binding}" Background="DarkGray">
+                <ItemsControl.Styles>
+                    <Style Selector="ItemsControl > ContentPresenter">
+                        <Setter Property="Margin" Value="0,0,4,4" />
+                        <Setter Property="(c:VariableSizedWrapGrid.ColumnSpan)" Value="{Binding ColSpan}" />
+                        <Setter Property="(c:VariableSizedWrapGrid.RowSpan)" Value="{Binding RowSpan}" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ItemsControl.Styles>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid ItemHeight="100" ItemWidth="150" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.DataTemplates>
+                    <DataTemplate>
+                        <Grid Height="1300" Width="1300">
+                            <Grid.Background>
+                                <SolidColorBrush Color="{Binding Color}" />
+                            </Grid.Background>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                <StackPanel.Background>
+                                    <SolidColorBrush Color="Black" Opacity=".75" />
+                                </StackPanel.Background>
+                                <Panel Margin="10">
+                                    <TextBlock Text="{Binding Index, Mode=OneWay}" Foreground="Ivory" FontSize="15" />
+                                    <TextBlock Text=". " Foreground="Ivory" FontSize="15" />
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" Foreground="Ivory" FontSize="15" />
+                                </Panel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 1">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="True" StrictItemOrder="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="100" Width="100" Background="Black" />
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 2">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="100" Width="100" Background="Black" />
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 3">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="100" Width="100" Background="Black" />
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 4">
+            <ItemsControl Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="100" Width="100" Background="Black" />
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Example 5">
+            <ItemsControl Classes="vswg" Background="DarkGray">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:VariableSizedWrapGrid LatchItemSize="False" StrictItemOrder="False" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Grid Height="200" Width="200" Background="Black" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="200" Width="200" Background="Green" />
+                <Grid Height="100" Width="100" Background="Blue" />
+                <Grid Height="100" Width="100" Background="Aqua" />
+                <Grid Height="100" Width="100" Background="Red" />
+                <Grid Height="100" Width="100" Background="Black" />
+            </ItemsControl>
+        </TabItem>
+    </TabControl>
+</UserControl>
