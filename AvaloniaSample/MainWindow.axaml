@@ -12,7 +12,8 @@
         x:DataType="vm:TilePanelViewModel" x:CompileBindings="True">
     <ItemsControl Items="{Binding Tiles}"
                   UseLayoutRounding="False"
-                  Background="DarkGray">
+                  Background="DarkGray"
+                  Name="ItemsControl">
         <ItemsControl.Styles>
             <Style Selector="ItemsControl > ContentPresenter" x:DataType="vm:TileViewModel">
                 <Setter Property="c:VariableSizedWrapGrid.ColumnSpan" Value="{Binding ColumnSpan}"/>
@@ -29,14 +30,14 @@
                                          Orientation="Horizontal" 
                                          VerticalChildrenAlignment="Stretch"
                                          HorizontalChildrenAlignment="Stretch"
-                                         Margin="4"/>
+                                         Margin="0"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="vm:TileViewModel">
                 <Border Background="{Binding Background}" 
                         CornerRadius="4" 
-                        Margin="4" />
+                        Margin="0" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
         <!-- <Grid Background="Red" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="1" /> -->
@@ -45,6 +46,5 @@
         <!-- <Grid Background="Yellow" c:VariableSizedWrapGrid.ColumnSpan="1" c:VariableSizedWrapGrid.RowSpan="2" /> -->
         <!-- <Grid Background="Black" c:VariableSizedWrapGrid.ColumnSpan="2" c:VariableSizedWrapGrid.RowSpan="2"/> -->
     </ItemsControl>
-
     <!-- <local:SamplesView/> -->
 </Window>
