@@ -17,8 +17,6 @@ namespace AvaloniaSample
             InitializeComponent();
             this.AttachDevTools();
 
-            double tileAspectRation = 0.5;
-            
             var tilePanel = new TilePanelViewModel()
             {
                 ItemHeight = 130,
@@ -71,12 +69,14 @@ namespace AvaloniaSample
 
             var itemsPanel = this.FindControl<ItemsControl>("ItemsControl");
 
+            double tileAspectRation = 0.5;
+
             itemsPanel.GetObservable(BoundsProperty).Subscribe(x =>
             {
                 var width = x.Width;
                 var itemWidth = width / tilePanel.MaximumRowsOrColumns;
                 var itemHeight = itemWidth * tileAspectRation;
- 
+            
                 tilePanel.ItemHeight = itemHeight;
                 tilePanel.ItemWidth = itemWidth;
             });
