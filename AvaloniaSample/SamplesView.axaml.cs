@@ -5,18 +5,13 @@ using Avalonia.Media;
 
 namespace AvaloniaSample
 {
-    public class SamplesView : UserControl
+    public partial class SamplesView : UserControl
     {
         public SamplesView()
         {
             InitializeComponent();
 
             InitColors();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
 
         private void InitColors()

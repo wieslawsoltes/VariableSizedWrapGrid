@@ -10,7 +10,7 @@
         x:Class="AvaloniaSample.MainWindow"
         Title="MainWindow"
         x:DataType="vm:TilePanelViewModel" x:CompileBindings="True">
-    <ItemsControl Items="{Binding Tiles}"
+    <ItemsControl ItemsSource="{Binding Tiles}"
                   UseLayoutRounding="False"
                   Background="DarkGray"
                   Name="ItemsControl">

@@ -23,9 +23,7 @@
                                       HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                       VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                             <ItemsPresenter Name="PART_ItemsPresenter"
-                                            Items="{TemplateBinding Items}"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                                            ItemTemplate="{TemplateBinding ItemTemplate}"/>
+                                            ItemsPanel="{TemplateBinding ItemsPanel}"/>
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>
@@ -55,7 +53,7 @@
             </ItemsControl>
         </TabItem>
         <TabItem Header="Colors">
-            <ItemsControl Classes="vswg" Items="{Binding}" Background="DarkGray">
+            <ItemsControl Classes="vswg" ItemsSource="{Binding}" Background="DarkGray">
                 <ItemsControl.Styles>
                     <Style Selector="ItemsControl > ContentPresenter">
                         <Setter Property="Margin" Value="0,0,4,4" />

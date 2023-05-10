@@ -10,7 +10,7 @@ using AvaloniaSample.ViewModels;
 
 namespace AvaloniaSample
 {
-    public class MainWindow : Window
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
@@ -67,11 +67,9 @@ namespace AvaloniaSample
                 }
             };
 
-            var itemsPanel = this.FindControl<ItemsControl>("ItemsControl");
-
             double tileAspectRation = 0.5;
 
-            itemsPanel.GetObservable(BoundsProperty).Subscribe(x =>
+            ItemsControl.GetObservable(BoundsProperty).Subscribe(x =>
             {
                 var width = x.Width;
                 var itemWidth = width / tilePanel.MaximumRowsOrColumns;
@@ -82,11 +80,6 @@ namespace AvaloniaSample
             });
 
             DataContext = tilePanel;
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

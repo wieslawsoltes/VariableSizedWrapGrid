@@ -41,25 +41,21 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
         public static int GetColumnSpan(Control element)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
             return element!.GetValue(ColumnSpanProperty);
         }
 
         public static void SetColumnSpan(Control element, int value)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
             element!.SetValue(ColumnSpanProperty, value);
         }
 
         public static int GetRowSpan(Control element)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
             return element!.GetValue(RowSpanProperty);
         }
 
         public static void SetRowSpan(Control element, int value)
         {
-            Contract.Requires<ArgumentNullException>(element != null);
             element!.SetValue(RowSpanProperty, value);
         }
 
@@ -530,7 +526,7 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
         bool ILogicalScrollable.IsLogicalScrollEnabled => true;
 
-        event EventHandler ILogicalScrollable.ScrollInvalidated
+        event EventHandler? ILogicalScrollable.ScrollInvalidated
         {
             add => _scrollInvalidated += value;
             remove => _scrollInvalidated -= value;
@@ -540,14 +536,14 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
         Size ILogicalScrollable.PageScrollSize => new Size(16, 16);
 
-        bool ILogicalScrollable.BringIntoView(IControl target, Rect targetRect)
+        bool ILogicalScrollable.BringIntoView(Control target, Rect targetRect)
         {
-            if (targetRect.IsEmpty)
+            if (targetRect == default)
             {
                 return false;
             }
 
-            targetRect = targetRect.TransformToAABB(target.TransformToVisual(this).Value);
+            targetRect = targetRect.TransformToAABB(target.TransformToVisual(this)!.Value);
 
             Rect viewRect = new Rect(_offset.X, _offset.Y, _viewport.Width, _viewport.Height);
 
@@ -576,10 +572,10 @@ namespace Avalonia.Controls.VariableSizedWrapGrid
 
             targetRect.Intersect(viewRect);
 
-            return !targetRect.IsEmpty;
+            return targetRect != default;
         }
 
-        IControl ILogicalScrollable.GetControlInDirection(NavigationDirection direction, IControl from)
+        Control? ILogicalScrollable.GetControlInDirection(NavigationDirection direction, Control? from)
         {
             return null;
         }
