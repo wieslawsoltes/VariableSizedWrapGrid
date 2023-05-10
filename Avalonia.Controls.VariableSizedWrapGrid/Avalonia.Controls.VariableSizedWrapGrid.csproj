@@ -7,6 +7,7 @@
     <IsPackable>True</IsPackable>
     <AnalysisLevel>latest</AnalysisLevel>
     <LangVersion>latest</LangVersion>
+    <AvaloniaVersion>0.10.19</AvaloniaVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,7 +26,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
-    <PackageReference Include="Avalonia" Version="0.10.19" />
+    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
   </ItemGroup>
 
 </Project>
