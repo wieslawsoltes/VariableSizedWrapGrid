@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.10.4</VersionPrefix>
+    <VersionPrefix>0.10.19</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
-    <Copyright>Copyright © Wiesław Šoltés 2021</Copyright>
+    <Copyright>Copyright © Wiesław Šoltés 2023</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wieslawsoltes/VariableSizedWrapGrid</PackageProjectUrl>
     <Description>Provides a grid-style layout panel where each tile/cell can be variable size based on content.</Description>
@@ -25,7 +25,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
-    <PackageReference Include="Avalonia" Version="0.10.4" />
+    <PackageReference Include="Avalonia" Version="0.10.19" />
   </ItemGroup>
 
 </Project>
