@@ -7,11 +7,11 @@
     <IsPackable>True</IsPackable>
     <AnalysisLevel>latest</AnalysisLevel>
     <LangVersion>latest</LangVersion>
-    <AvaloniaVersion>11.0.0-preview8</AvaloniaVersion>
+    <AvaloniaVersion>11.0.0</AvaloniaVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.10.19</VersionPrefix>
+    <VersionPrefix>11.0.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
